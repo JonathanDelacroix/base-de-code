@@ -33,16 +33,16 @@
                                     </a>
                                 @endcan
                                 {{-- Supprimer --}}
-                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    @can('delete', $product)
+                                @can('delete', $product)
+                                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
                                         <button type="submit" class="ml-2 text-red-600 underline"
                                             onclick="return confirm('Supprimer ce produit ?')">
                                             Supprimer
                                         </button>
-                                    @endcan
-                                </form>
+                                    </form>
+                                @endcan
                             </li>
                         @endforeach
                     </ul>

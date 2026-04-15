@@ -64,4 +64,11 @@ class ProductPolicy
     {
         return false;
     }
+
+    public function before($user, $ability)
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+    }
 }

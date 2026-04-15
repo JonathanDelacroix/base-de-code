@@ -70,5 +70,7 @@ class ProductPolicy
         if ($user->hasRole('admin')) {
             return true;
         }
+
+        return null;
     }
 }

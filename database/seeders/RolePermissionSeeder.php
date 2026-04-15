@@ -15,7 +15,7 @@ class RolePermissionSeeder extends Seeder
         $permission = Permission::create(['name' => 'view dashboard']);
 
         $role->givePermissionTo($permission);
-        $user = User::find(1);
+        $user = User::where('email', 'admin@example.com')->first();;
         $user->assignRole('admin');
     }
 }

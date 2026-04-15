@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -12,8 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Product::class);
 
+        Gate::authorize('viewAny', Product::class);
         $products = Product::with('user')->get();
 
         return view('products.index', compact('products'));
@@ -24,8 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Product::class);
-
+        Gate::authorize('create', Product::class);
         return view('products.create');
     }
 
@@ -60,8 +60,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $this->authorize('view', $product);
-
+        Gate::authorize('view', $product);
         return view('products.show', compact('product'));
     }
 
@@ -80,8 +79,7 @@ class ProductController extends Controller
      */
     public function update(Request $request,  Product $product)
     {
-        $this->authorize('update', $product);
-
+        Gate::authorize('update', $product);
         $validated = $request->validate([
             'name'  => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
@@ -103,8 +101,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $this->authorize('delete', $product);
-
+        Gate::authorize('delete', $product);
         $product->delete();
 
         return redirect()
